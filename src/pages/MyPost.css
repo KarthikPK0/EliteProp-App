@@ -1,0 +1,18 @@
+
+.featured {
+    transition: background-color 0.3s ease;
+  }
+  
+  .featured:hover {
+    background-color: #000066;
+  }
+  
+  .normal {
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  .normal:hover {
+    background-color: #000080; 
+    color: #ffffff; 
+  }
+  

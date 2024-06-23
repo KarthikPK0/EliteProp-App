@@ -1,0 +1,9 @@
+#navItem:hover{
+color: #000080;
+transition: color 0.3s ease-in-out;
+}
+
+#basic-nav-dropdown:hover{
+    color: #000080;
+    transition: color 0.3s ease-in-out;
+}

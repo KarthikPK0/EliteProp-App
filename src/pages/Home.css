@@ -1,0 +1,20 @@
+
+@media(max-width:768px)
+{
+.homerow{
+    flex-direction: column-reverse;
+}
+
+  .homerow2c1 {
+    justify-content: center !important; 
+    text-align: center; 
+    padding-right: 0 !important; 
+
+}
+
+  .homerow2c2{
+    justify-content: center !important;
+    padding-right: 0 !important; 
+    padding-left: 85px !important; 
+  }
+}

@@ -1,0 +1,71 @@
+.col-md-3 ul{
+    list-style: none;
+  
+}
+
+.col-md-3 ul li a {
+    text-decoration: none;
+    font-size: 18px;
+    color: black;
+    transition: all 0.3s ease-in-out; 
+}
+
+.col-md-3 ul li a:hover {
+    text-decoration: underline;
+}
+
+.col-md-3 ul li{
+    font-size: 18px;  
+ 
+}
+
+.col-md-3 h3{
+    font-weight: 600;
+    font-size: 24px;
+}
+
+.col-md-3 p{
+    font-size: 18px;
+}
+
+.col-md-3 ul{
+   padding-left: 3px;
+  
+}
+
+.icon
+{
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 30px;
+    border: solid 1px #555;
+    transition: all 0.3s ease;
+}
+
+.fa-brands{
+font-size: 22px;
+color: #555;
+transition: color 0.3s ease;
+}
+
+.twitter,.fa-twitter:hover{
+    color: #1DA1F2;
+}
+
+.facebook,.fa-facebook:hover{
+    color: #4267B2;
+}
+
+.youtube,.fa-youtube:hover{
+    color: #FF0000;
+}
+
+.linkedin,.fa-linkedin:hover{
+    color:#0A66C2;
+}
+
+
+
