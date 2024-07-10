@@ -36,10 +36,10 @@ const Footer = () => {
          </ul>
 
          <div style={{paddingLeft:'10px'}} className="logos w-75  d-flex justify-content-between">
-          <div className="icon twitter"><a href=""><i class="fa-brands fa-twitter"></i></a></div>
-          <div className="icon facebook"><a href=""><i class="fa-brands fa-facebook"></i></a></div>
-          <div className="icon youtube"><a href=""><i class="fa-brands fa-youtube"></i></a></div>
-          <div className="icon linkedin"><a href=""><i class="fa-brands fa-linkedin"></i></a></div>
+          <div className="icon twitter"><a href="#currently-im-not-available-at-twitter"><i class="fa-brands fa-twitter"></i></a></div>
+          <div className="icon facebook"><a href="#currently-im-not-available-at-facebook"><i class="fa-brands fa-facebook"></i></a></div>
+          <div className="icon youtube"><a href="#currently-im-not-available-at-youtube"><i class="fa-brands fa-youtube"></i></a></div>
+          <div className="icon linkedin"><a href="https://www.linkedin.com/in/karthik-p-k-5a818824b/"><i class="fa-brands fa-linkedin"></i></a></div>
          </div>
     </div>
    

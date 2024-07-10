@@ -12,3 +12,9 @@
     overflow: hidden; 
   }
   
+  .card-image-container img {
+    height: 240px; 
+    object-fit: cover;  
+    width: 100%;
+  }
+  

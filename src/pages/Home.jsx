@@ -5,9 +5,19 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import aboutImg from '../assets/about.jpg'
 import Footer from '../components/Footer';
 import './Home.css'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Home = () => {
+  const navigate = useNavigate()
+  const handleProperty = () => {
+    if(sessionStorage.getItem("token")){
+       navigate('/propertylist')
+    }else{
+        toast.warning('Please login to get full access to our website!!')
+    }
+  }
   return (
     <div>
       <Header />
@@ -21,9 +31,16 @@ const Home = () => {
           <p className='mt-3'>Unlocking your potential and giving you the freedom to focus on what matters most.</p>
         </div>
       <div className='mt-2'>
-      <Link to={'/register'} style={{backgroundColor:'#000080', color:'#ddd'}} className='btn btn-lg'>
-            Get Started
-          </Link>
+    {
+      sessionStorage.getItem("token")?
+        <Link onClick={handleProperty} to={'/propertylist'} style={{backgroundColor:'#000080', color:'#ddd'}} className='btn btn-lg'>
+         Explore us
+      </Link>:
+       <Link to={'/login'} style={{backgroundColor:'#000080', color:'#ddd'}} className='btn btn-lg'>
+      Get Started 
+     </Link>
+
+    }
       </div>
         </div>
 
@@ -79,6 +96,7 @@ const Home = () => {
       </div>
 
      <Footer/>
+     <ToastContainer position='top-center' theme='colored' autoClose={3000}/>
     </div>
   );
 };

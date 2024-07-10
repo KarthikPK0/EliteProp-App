@@ -1,15 +1,97 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
+import clsx from 'clsx'; 
 import loginImg from '../assets/login.jpg'
 import logo from '../assets/logo.png';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { loginAPI, registerAPI } from '../services/allAPI';
+import { Spinner } from 'react-bootstrap';
+import { tokenAuthContext } from '../contexts/AuthContext';
+
+
 
 
 const Auth = ({insideRegister}) => {
+  const {isAuthorised,setIsAuthorised} = useContext(tokenAuthContext)
+  const [isLoggedin,setIsLoggedIn] = useState(false)
+  const navigate = useNavigate()
+  const [userData,setUserData] = useState({
+    username:"",email:"",password:""
+  })
+  
+  //console.log(userData);
+
+  const handleRegister = async (e) => {
+    e.preventDefault()
+    if(userData.username && userData.email && userData.password){
+      try{
+        const result = await registerAPI(userData)
+
+        console.log(result);
+
+        if(result.status==200){
+          toast.success(`Welcome ${result?.data?.username}... Please login to explore our website!!`)
+          setUserData({username:"",email:"",password:""})
+          navigate('/login')
+        }else{
+          if(result.response.status==406){
+            toast.error(result.response.data)
+            setUserData({username:"",email:"",password:""})
+          }
+        }
+
+      }catch(err){
+        console.log(err);
+      }
+
+    }else{
+      toast.info("Please fill the form completely!!")
+
+    }
+    
+  }
+
+  const handleLogin = async (e) => {
+    e.preventDefault()
+    if( userData.email && userData.password){
+
+      try{
+       const result = await loginAPI(userData)
+       console.log(result);
+       if(result.status==200){
+        setIsLoggedIn(true)
+        sessionStorage.setItem("user",JSON.stringify(result.data.user))
+        sessionStorage.setItem("token",result.data.token)
+        setIsAuthorised(true)
+        //toast.success(`Welcome ${result.data.user.username}...`)
+      
+       setTimeout(() => {
+        setUserData({ username:"",email:"",password:""})
+        setIsLoggedIn(false)
+        navigate('/')
+       },2000)
+       }else{
+        if(result.response.status==404){
+          toast.error(result.response.data)
+        }
+       }
+      }catch(err){
+        console.log(err);
+      }
+    
+
+    }else{
+      toast.info("Please fill the form completely!!")
+
+    }   
+  }
+
   return (
-      <div style={{width:'100%',height:'100vh'}} className='d-flex justify-content-center align-items-center'>
-     <div className="container w-75 ">
+      <div style={{width:'100%',height:'100vh'}} className='d-flex justify-content-center align-items-center  '>
+     <div  className="container w-75  ">
       <div className="card shadow p-2">
       <div className="row align-items-center">
       <div className="col-lg-6">
@@ -36,17 +118,17 @@ const Auth = ({insideRegister}) => {
       label="Username"
       className="mb-3"
     >
-      <Form.Control type="text" placeholder="Username"  />
+      <Form.Control type="text" placeholder="Username" value={userData.username} onChange={e=>setUserData({...userData,username:e.target.value})} />
     </FloatingLabel>
     }
 
       <FloatingLabel controlId="floatingInput" label="Email address" className='mb-3'>
-        <Form.Control type="email" placeholder="name@example.com"  />
+        <Form.Control type="email" placeholder="name@example.com" value={userData.email} onChange={e=>setUserData({...userData,email:e.target.value})}  />
       </FloatingLabel>
 
       
       <FloatingLabel controlId="floatingPassword" label="Password">
-        <Form.Control type="password" placeholder="Password"  />
+        <Form.Control type="password" placeholder="Password" value={userData.password} onChange={e=>setUserData({...userData,password:e.target.value})}  />
       </FloatingLabel>
           </Form>
 
@@ -54,13 +136,16 @@ const Auth = ({insideRegister}) => {
             insideRegister?
 
             <div className="mt-3">
-              <button  className='btn btn-primary mb-2'>Register</button>
+              <button onClick={handleRegister}  className='btn btn-primary mb-2'>Register</button>
               <p>Already have an account? Click here to <Link to={'/login'}>Login</Link></p>
             </div>
             :
             <div className="mt-3">
-            <button  className='btn btn-primary mb-2'>Login
-        
+            <button onClick={handleLogin}  className='btn btn-primary mb-2 d-flex align-items-center'>Login 
+        {
+          isLoggedin &&
+            <Spinner animation="border" size="sm" className='ms-1' variant="light" />
+        }
             </button>
          
 
@@ -71,7 +156,7 @@ const Auth = ({insideRegister}) => {
       </div>
       </div>
      </div>
-   
+    <ToastContainer position='top-center' theme='colored' autoClose={3000}/>
     </div>
   )
 }
