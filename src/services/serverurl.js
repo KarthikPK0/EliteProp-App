@@ -1,3 +1,3 @@
-const SERVERURL = "https://eliteprop-server.onrender.com" 
+const SERVERURL = "http://localhost:3000" 
 
 export default SERVERURL
